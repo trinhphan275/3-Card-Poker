@@ -10,10 +10,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,6 +27,7 @@ public class Controller {
     @FXML public Rectangle pauseScreen;
     @FXML public Text pauseText;
     @FXML public Text pauseTextBelow;
+    @FXML public AnchorPane BetPlayer2;
 
     ThreeCardPokerGame game;
 
@@ -83,10 +86,11 @@ public class Controller {
 
 
     @FXML
-    private HBox playButtonContainer; // Reference to the HBox containing the play button
+    public HBox playButtonContainer; // Reference to the HBox containing the play button
 
     @FXML
     public Button playBtn; // Reference to the play button
+
 
 
     // Handle Start Button
@@ -107,6 +111,22 @@ public class Controller {
             e.printStackTrace();
             System.out.println("Could not load GamePlayScreen.fxml. Please check the file path.");
         }
+    }
+
+    // Initialize method called when GamePlayScreen.fxml is loaded
+    @FXML
+    private void initialize() {
+        if (dealerCard1 != null) { // Check if we are on the Gameplay screen
+            resetBetFields();
+            resetCardImages();
+        }
+        // Initialize player and dealer objects
+        player1 = new Player();
+        player2 = new Player();
+        dealer = new Dealer();
+        // Initialize the game object
+        game = new ThreeCardPokerGame();  // Ensure the game object is initialized
+
     }
 
     // Method to handle the Home button click (navigates back to Welcome screen)
@@ -138,12 +158,7 @@ public class Controller {
     }
 
 
-    // Show Player's Hand and Dealer's Hand after both bets are confirmed
-    private void showCardsAndDecisions() {
-        // Show cards for Player 1, Player 2, and Dealer
-        showPlayerCards();
-        showDealerCards();
-    }
+
 
     // Handle Play Button - Show the Betting Screen for Player 1
     @FXML
@@ -276,6 +291,13 @@ public class Controller {
         // Close Player 2's Ante Bet pop-up
         Stage anteBetStage = (Stage) player2AnteBetField.getScene().getWindow();
         anteBetStage.close();
+
+        // Show the cards for both players and dealer
+        showPlayerCards();
+        showDealerCards();
+
+        // After showing cards, switch to the gameplay screen
+        goToGameplayScreen();
     }
 
     // Method to show Player 2's Ante Bet pop-up after Player 1's bet is confirmed
@@ -296,14 +318,17 @@ public class Controller {
             e.printStackTrace();
             showError("Could not load AnteBetPlayer2.fxml. Please check the file path.");
         }
-        showPlayerCards();
+
     }
 
     // Show Player's Cards
     private void showPlayerCards() {
         // Assuming you have the hand for Player 1 and Player 2
-        ArrayList<Card> player1Hand = player1.getHand();  // Get Player 1's hand
-        ArrayList<Card> player2Hand = player2.getHand();  // Get Player 2's hand
+        ArrayList<Card> player1Hand = dealer.dealHand();  // Get Player 1's hand
+        ArrayList<Card> player2Hand = dealer.dealHand();  // Get Player 2's hand
+
+        player1.setHand(dealer.dealHand());
+        player2.setHand(dealer.dealHand());
 
         // Display cards for Player 1 and Player 2
         displayCards(player1Hand, player1Card1, player1Card2, player1Card3);  // Display Player 1's cards
@@ -322,7 +347,7 @@ public class Controller {
 
     // Display cards for a given hand
     private void displayCards(ArrayList<Card> hand, ImageView card1, ImageView card2, ImageView card3) {
-        if (hand != null && hand.size() == 3) {
+        if (hand != null) {
             card1.setImage(new Image("/image/deck/" + hand.get(0).getValue() + hand.get(0).getSuit() + ".png"));
             card2.setImage(new Image("/image/deck/" + hand.get(1).getValue() + hand.get(1).getSuit() + ".png"));
             card3.setImage(new Image("/image/deck/" + hand.get(2).getValue() + hand.get(2).getSuit() + ".png"));
@@ -331,6 +356,27 @@ public class Controller {
         }
     }
 
+    // Method to switch back to Gameplay Screen after cards are displayed
+    private void goToGameplayScreen() {
+        // Hide the current betting screen
+        BetPlayer2.setVisible(false);
+
+        // Show the gameplay screen with Play and Fold buttons
+        GamePlayScreen.setVisible(true);
+
+        // Update the TextFields for Player 1 and Player 2 to reflect the betting amounts
+        player1AnteBetField.setText("$" + player1.getAnteBet());
+        player1PlayBetField.setText("$" + player1.getPlayBet());
+        player1PairPlusBetField.setText("$" + player1.getPairPlusBet());
+        totalWinningsField1.setText("$" + player1.getTotalWinnings());
+
+        player2AnteBetField.setText("$" + player2.getAnteBet());
+        player2PlayBetField.setText("$" + player2.getPlayBet());
+        player2PairPlusBetField.setText("$" + player2.getPairPlusBet());
+        totalWinningsField2.setText("$" + player2.getTotalWinnings());
+    }
+
+
     // Show error message
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message);
@@ -338,6 +384,7 @@ public class Controller {
         alert.setHeaderText(null);
         alert.showAndWait();
     }
+
     // Handle Player 1's Play Button
     @FXML
     private void handlePlayer1Play(ActionEvent event) {
@@ -345,9 +392,6 @@ public class Controller {
         // Disable buttons after selection
         player1PlayButton.setDisable(true);
         player1FoldButton.setDisable(true);
-
-        // Proceed with hand evaluation
-        evaluateHands();
     }
 
     // Handle Player 1's Fold Button
@@ -374,9 +418,6 @@ public class Controller {
         // Disable buttons after selection
         player2PlayButton.setDisable(true);
         player2FoldButton.setDisable(true);
-
-        // Proceed with hand evaluation
-        evaluateHands();
     }
 
     // Handle Player 2's Fold Button
@@ -439,21 +480,7 @@ public class Controller {
         }
     }
 
-    // Initialize method called when GamePlayScreen.fxml is loaded
-    @FXML
-    private void initialize() {
-        if (dealerCard1 != null) { // Check if we are on the Gameplay screen
-            resetBetFields();
-            resetCardImages();
-        }
-        // Initialize player and dealer objects
-        player1 = new Player();
-        player2 = new Player();
-        dealer = new Dealer();
-        // Initialize the game object
-        game = new ThreeCardPokerGame();  // Ensure the game object is initialized
 
-    }
 
     // Method to reset bet fields to default values
     private void resetBetFields() {
