@@ -22,14 +22,11 @@ public class Controller {
     @FXML public AnchorPane GamePlayScreen;
     @FXML public Button playButton;
 
-
-    ThreeCardPokerGame game;
-
     @FXML public Rectangle pauseScreen;
     @FXML public Text pauseText;
     @FXML public Text pauseTextBelow;
 
-
+    ThreeCardPokerGame game;
 
     // Player 1's FXML elements
     @FXML public AnchorPane BetPlayer1;
@@ -299,6 +296,7 @@ public class Controller {
             e.printStackTrace();
             showError("Could not load AnteBetPlayer2.fxml. Please check the file path.");
         }
+        showPlayerCards();
     }
 
     // Show Player's Cards
@@ -452,6 +450,9 @@ public class Controller {
         player1 = new Player();
         player2 = new Player();
         dealer = new Dealer();
+        // Initialize the game object
+        game = new ThreeCardPokerGame();  // Ensure the game object is initialized
+
     }
 
     // Method to reset bet fields to default values

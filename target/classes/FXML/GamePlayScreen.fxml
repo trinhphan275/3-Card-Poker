@@ -25,11 +25,12 @@
             <ImageView fx:id="dealerCard2" fitWidth="100" fitHeight="150"/>
             <ImageView fx:id="dealerCard3" fitWidth="100" fitHeight="150"/>
         </HBox>
-
-        <HBox>
-            <Button fx:id="playButton" text="Play" onAction="#handlePlayButton" style="-fx-font-size: 16; -fx-padding: 10;"/>
-        </HBox>
     </VBox>
+
+    <HBox fx:id="playButtonContainer" alignment="CENTER" layoutY="0" style="-fx-padding: 10;">
+        <Button fx:id="playBtn" text="Play" onAction="#handlePlayButton" style="-fx-font-size: 16; -fx-padding: 10;"/>
+    </HBox>
+
 
 
 
