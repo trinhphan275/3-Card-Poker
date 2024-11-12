@@ -13,6 +13,8 @@ public class Dealer {
     public Dealer() {
         this.theDeck = new Deck();
         this.dealersHand = new ArrayList<>();
+
+        System.out.println("created dealer successfully");
     }
 
     public ArrayList<Card> dealHand() {

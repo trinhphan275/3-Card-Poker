@@ -20,6 +20,7 @@ public class Player {
         this.pairPlusBet = 0;
         this.totalWinnings = 0;
         this.totalMoney = 500;
+        System.out.println("created player successfully");
     }
 
     public void setHand(ArrayList<Card> hand) {
