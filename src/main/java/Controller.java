@@ -246,8 +246,8 @@ public class Controller {
     // Method to handle Player 2's Ante Bet and Pair Plus Bet confirmation
     @FXML
     private void handleConfirmPlayer2Bet(ActionEvent event) {
-        String anteBetText = player2AnteBetField.getText().trim();
-        String pairPlusBetText = player2PairPlusBetField.getText().trim();
+        String anteBetText = player2AnteBetField.getText();
+        String pairPlusBetText = player2PairPlusBetField.getText();
 
         // Validate Ante Bet for Player 2
         if (anteBetText.isEmpty()) {
@@ -320,15 +320,15 @@ public class Controller {
         }
 
     }
-
     // Show Player's Cards
     private void showPlayerCards() {
-        // Assuming you have the hand for Player 1 and Player 2
+        // Deal hand for Player 1 and Player 2
         ArrayList<Card> player1Hand = dealer.dealHand();  // Get Player 1's hand
         ArrayList<Card> player2Hand = dealer.dealHand();  // Get Player 2's hand
 
-        player1.setHand(dealer.dealHand());
-        player2.setHand(dealer.dealHand());
+        // Set the hands for each player
+        player1.setHand(player1Hand);
+        player2.setHand(player2Hand);
 
         // Display cards for Player 1 and Player 2
         displayCards(player1Hand, player1Card1, player1Card2, player1Card3);  // Display Player 1's cards
