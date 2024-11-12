@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="BetPlayer2" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller" prefWidth="400" prefHeight="300">
+
+    <!-- Title -->
+    <Text fx:id="betTitle" text="Player 2: Ante Bet" style="-fx-font-size: 18; -fx-font-weight: bold;" layoutX="150" layoutY="30"/>
+    <Text text="Enter your ante bet (5 - 25):" style="-fx-font-size: 14;" layoutX="50" layoutY="60"/>
+    <TextField fx:id="player2AnteBetField" promptText="Enter Ante Bet ($5 - $25)" layoutX="100" layoutY="90" prefWidth="200"/>
+
+    <Text text="Enter your Pair Plus Bet (Optional):" style="-fx-font-size: 14;" layoutX="50" layoutY="130"/>
+    <TextField fx:id="player2PairPlusBetField" promptText="Enter Pair Plus Bet ($5 - $25)" layoutX="100" layoutY="160" prefWidth="200"/>
+
+    <!-- Confirm Button -->
+    <Button fx:id="confirmButton2" text="Confirm" onAction="#handleConfirmPlayer2Bet" layoutX="150" layoutY="210" prefWidth="100" style="-fx-font-size: 14; -fx-padding: 10;"/>
+</AnchorPane>
