@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 
 public class Player {
-    // This class represents a player in the game
-    // It keeps track of each games current hand and current bets as well as the total winnings for  that player across multiple games
-    // If the player has lost more than he/she has won,that number can be negative
+    // Represents a player in the game, tracking the hand, bets, total winnings, and total money available.
 
     private ArrayList<Card> hand;
     private int anteBet;
@@ -12,7 +10,7 @@ public class Player {
     private int totalWinnings;
     private int totalMoney;
 
-    // Provide a no argument constructor for this class
+    // Constructor initializes player with default values, including starting money.
     public Player() {
         this.hand = new ArrayList<>();
         this.anteBet = 0;
@@ -20,93 +18,114 @@ public class Player {
         this.pairPlusBet = 0;
         this.totalWinnings = 0;
         this.totalMoney = 500;
-        System.out.println("created player successfully");
+        System.out.println("Player created successfully.");
     }
 
+    // Sets the player's hand with a given set of cards.
     public void setHand(ArrayList<Card> hand) {
-        //this.hand = hand;
-        for (int i = 0; i < 3; i++) {
-            // dealersHand.add(theDeck.remove(0));
-            this.hand.add(hand.get(0));
-            hand.remove(0);
+        this.hand.clear();
+        for (int i = 0; i < 3 && !hand.isEmpty(); i++) {
+            this.hand.add(hand.remove(0));
         }
     }
 
+    // Sets the ante bet amount.
     public void setAnteBet(int anteBet) {
         this.anteBet = anteBet;
     }
 
+    // Sets the play bet amount.
     public void setPlayBet(int playBet) {
         this.playBet = playBet;
     }
 
+    // Sets the pair plus bet amount.
     public void setPairPlusBet(int pairPlusBet) {
         this.pairPlusBet = pairPlusBet;
     }
 
+    // Updates total winnings by adding a specified amount.
+    public void addWinnings(int winnings) {
+        totalWinnings += winnings;
+        totalMoney += winnings;  // Increase total money with winnings
+    }
+
+    // Sets total winnings directly (useful for resets or specific adjustments).
     public void setTotalWinnings(int totalWinnings) {
         this.totalWinnings = totalWinnings;
     }
 
+    // Adjusts the player's total money, which can be positive or negative based on outcomes.
     public void setTotalMoney(int totalMoney) {
         this.totalMoney = totalMoney;
     }
 
+    // Retrieves the current hand of the player.
     public ArrayList<Card> getHand() {
-        return hand;
+        return new ArrayList<>(hand);
     }
+
+    // Displays the player's hand in a readable format.
     public void printHand() {
-        for (int i = 0; i < 3; i++) {
-            System.out.println(this.hand.get(i).getValue() + " " + this.hand.get(i).getSuit());
+        System.out.println("Player's hand:");
+        for (Card card : hand) {
+            System.out.println(card.getValue() + " " + card.getSuit());
         }
         System.out.println();
     }
 
+    // Retrieves current ante bet.
     public int getAnteBet() {
         return anteBet;
     }
 
+    // Retrieves current play bet.
     public int getPlayBet() {
         return playBet;
     }
 
+    // Retrieves current pair plus bet.
     public int getPairPlusBet() {
         return pairPlusBet;
     }
 
+    // Retrieves total winnings, which can be negative if losses exceed wins.
     public int getTotalWinnings() {
         return totalWinnings;
     }
 
+    // Retrieves the player's total money.
     public int getTotalMoney() {
         return totalMoney;
     }
 
-    // Provide a method to add a card to the players hand
+    // Adds a card to the player's hand.
     public void addCard(Card card) {
-        hand.add(card);
+        if (hand.size() < 3) {
+            hand.add(card);
+        }
     }
 
-    // Provide a method to remove a card from the players hand
+    // Removes a specific card from the player's hand.
     public void removeCard(Card card) {
         hand.remove(card);
     }
 
-    // Provide a method to clear the players hand
+    // Clears the player's hand for a new game.
     public void clearHand() {
         hand.clear();
     }
 
-    // Provide a method to add the players bets
+    // Sets bets for the player at once, useful for initializing a game.
     public void addBets(int anteBet, int playBet, int pairPlusBet) {
         this.anteBet = anteBet;
         this.playBet = playBet;
         this.pairPlusBet = pairPlusBet;
     }
 
-    // Provide a method to clear the players bets
+    // Clears the player's hand, bets, and winnings, and resets total money.
     public void clear() {
-        hand.clear();
+        clearHand();
         anteBet = 0;
         playBet = 0;
         pairPlusBet = 0;
@@ -114,16 +133,16 @@ public class Player {
         totalMoney = 500;
     }
 
-    // Provide a method to add winnings to the players total winnings
-    public void addWinnings(int winnings) {
-        totalWinnings += winnings;
-    }
-
-    // For testing purposes
+    // Returns a string representation of the player's current status for testing and debugging.
     @Override
     public String toString() {
-        return "Player{" + "hand=" + hand + ", anteBet=" + anteBet + ", playBet=" + playBet + ", pairPlusBet=" + pairPlusBet + ", totalWinnings=" + totalWinnings + '}';
+        return "Player{" +
+                "hand=" + hand +
+                ", anteBet=" + anteBet +
+                ", playBet=" + playBet +
+                ", pairPlusBet=" + pairPlusBet +
+                ", totalWinnings=" + totalWinnings +
+                ", totalMoney=" + totalMoney +
+                '}';
     }
-
-
 }

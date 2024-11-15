@@ -28,6 +28,25 @@ public class Card {
         this.value = value;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Card card = (Card) obj;
+        return suit == card.suit && value == card.value;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Character.hashCode(suit);
+        result = 31 * result + Integer.hashCode(value);
+        return result;
+    }
+
     // For testing purposes
     @Override
     public String toString() {

@@ -177,7 +177,7 @@ public class ThreeCardLogic {
             return 2;
         else if (playerHighest < dealerHighest)
             return 1;
-        else 
+        else
             return 0;
     }
 
@@ -189,49 +189,71 @@ public class ThreeCardLogic {
         else
             return 0;
     }
-    // add in parameter string to specify player
+
+    private static int compareThreeOfAKind(ArrayList<Integer> listDealer, ArrayList<Integer> listPlayer) {
+        // In Three of a Kind, all three cards have the same rank, so we compare the rank of the three cards.
+        // Assuming that listDealer and listPlayer are sorted and contain only the three identical cards' values.
+
+        int dealerRank = listDealer.get(0); // All three cards in listDealer are the same, so we can just take the first.
+        int playerRank = listPlayer.get(0); // Similarly, for listPlayer.
+
+        // Compare the ranks
+        if (dealerRank > playerRank) {
+            return 1; // Dealer wins
+        } else if (dealerRank < playerRank) {
+            return 2; // Player wins
+        } else {
+            return 0; // Tie (both hands have the same Three of a Kind rank)
+        }
+    }
+
+
     public static int compareHands(ArrayList<Card> dealer, ArrayList<Card> player, String whichPlayer) {
-        // This method will compare the dealer's hand to the player's hand
-        // It will return 0 if neither hand won
-        // It will return 1 if the dealer wins
-        // It will return 2 if the player wins
         int valDealer = evalHand(dealer);
         int valPlayer = evalHand(player);
+
         ArrayList<Integer> listDealer = new ArrayList<>();
         ArrayList<Integer> listPlayer = new ArrayList<>();
 
+        // Populate card values
         for (int i = 0; i < 3; i++) {
-            listDealer.add(i, dealer.get(i).getValue());
-            listPlayer.add(i, player.get(i).getValue());
+            listDealer.add(dealer.get(i).getValue());
+            listPlayer.add(player.get(i).getValue());
         }
-        // Sort player and dealer hands
+
+        // Sort the hands in descending order by card value
         listDealer.sort(Comparator.reverseOrder());
         listPlayer.sort(Comparator.reverseOrder());
+
         System.out.println(valDealer);
-        System.out.println(whichPlayer + " " +valPlayer);
-        if (valDealer == 0 && valPlayer == 0)
-            return 0;
-        else if (valDealer > valPlayer && valPlayer == 0)
-            return 1;
-        else if (valDealer < valPlayer && valDealer == 0)
-            return 2;
-        else if (valDealer > valPlayer && valPlayer != 0)
-            return 2;
-        else if (valDealer < valPlayer && valDealer != 0)
-            return 1;
-        else {
-            if (valDealer == 5 && valPlayer == 5)
-                return comparePairs(listDealer, listPlayer);
-            else if (valDealer == 4 && valPlayer == 4)
-                return compareFlush(listDealer, listPlayer);
-            else if (valDealer == 3 && valPlayer == 3)
-                return compareStraight(listDealer, listPlayer);
-            else if (valDealer == 2 && valPlayer == 2)
-                return compareStraight(listDealer, listPlayer);
-            else if (valDealer == 1 && valPlayer == 1)
-                return compareStraight(listDealer, listPlayer);
-            else
-                return 0;
+        System.out.println(whichPlayer + " " + valPlayer);
+
+        // Compare hand rankings
+        if (valDealer == valPlayer) {
+            // If hands are of the same type, compare individual cards
+            return compareSameRankHands(valDealer, valPlayer, listDealer, listPlayer);
+        }
+
+        // Compare hands based on hand ranking (0 = no hand, 1 = pair, etc.)
+        if (valDealer < valPlayer) {
+            return 1; // Dealer wins
+        } else {
+            return 2; // Player wins
+        }
+    }
+
+    // Additional method to handle tie-breakers for same-ranked hands
+    private static int compareSameRankHands(int valDealer, int valPlayer, ArrayList<Integer> listDealer, ArrayList<Integer> listPlayer) {
+        if (valDealer == 5) { // Flush
+            return compareFlush(listDealer, listPlayer);
+        } else if (valDealer == 4) { // Straight
+            return compareStraight(listDealer, listPlayer);
+        } else if (valDealer == 3) { // Three of a kind (if implemented)
+            return compareThreeOfAKind(listDealer, listPlayer);
+        } else if (valDealer == 2) { // Pair
+            return comparePairs(listDealer, listPlayer);
+        } else {
+            return 0; // Both hands are equally weak (e.g., no valid hand)
         }
     }
 }

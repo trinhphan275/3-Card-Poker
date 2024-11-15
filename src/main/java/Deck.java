@@ -1,72 +1,60 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class Deck extends ArrayList<Card>{
+public class Deck extends ArrayList<Card> {
 
-
-    // This class represents a 52 card, standard deck, of playing cards. 
-    // The constructor will create a new deck of 52 cards that have been sorted in random order. 
-    // The newDeck() method will clear all the cards and create a brand new deck of 52 cards sorted in random order. 
-
-    // The constructor will create a new deck of 52 cards in random order
+    /**
+     * Constructor: Initializes a new deck of 52 cards and shuffles them into random order.
+     */
     public Deck() {
-        this.createDeck();
-        this.shuffle();
+        newDeck();
     }
 
-    // clear all the cards and create a brand new deck of 52 cards sorted in random order
+    /**
+     * Clears the deck, creates a new 52-card deck, and shuffles it into random order.
+     */
     public void newDeck() {
-        // this.clear();
-        this.createDeck();
-        this.shuffle();
+        this.clear();
+        createDeck();
+        shuffle();
     }
 
-    // create a deck of 52 cards
-    public void createDeck() {
-        for (int i = 2; i <= 14; i++) {
-            this.add(new Card('C', i));
-            this.add(new Card('D', i));
-            this.add(new Card('S', i));
-            this.add(new Card('H', i));
-        }
-    }
-
-    // create a deck of 52 cards sorted in random order
-    public void shuffle() {
-        for (int i = 0; i < 52; i++) {
-            int randomIndex = (int) (Math.random() * 52);
-            Card temp = this.get(i);
-            this.set(i, this.get(randomIndex));
-            this.set(randomIndex, temp);
-        }
-    }
-
-    // Rearrange the card in descending order
-    public ArrayList<Card> rearrange(ArrayList<Card> hand) {
-        for (int i = 0; i < hand.size(); i++) {
-            for (int j = i + 1; j < hand.size(); j++) {
-                if (hand.get(i).getValue() < hand.get(j).getValue()) {
-                    Card temp = hand.get(i);
-                    hand.set(i, hand.get(j));
-                    hand.set(j, temp);
-                }
+    /**
+     * Populates the deck with 52 cards (4 suits, values 2-14).
+     */
+    private void createDeck() {
+        char[] suits = {'C', 'D', 'S', 'H'};
+        for (char suit : suits) {
+            for (int value = 2; value <= 14; value++) {
+                this.add(new Card(suit, value));
             }
         }
-        return hand;
     }
 
-    public ArrayList<Card> dealHand() {
-        ArrayList<Card> hand = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            hand.add(this.get(0));
-            this.remove(0);
+    /**
+     * Shuffles the deck into random order.
+     */
+    public void shuffle() {
+        Collections.shuffle(this);
+    }
+
+    /**
+     * Draws (removes) the top card from the deck.
+     * @return The top card, or null if the deck is empty.
+     */
+    public Card draw() {
+        if (this.isEmpty()) {
+            return null;  // No cards left to draw
         }
-        return rearrange(hand) ;
+        return this.remove(0);  // Removes and returns the top card
     }
 
-    // For testing purposes
+    /**
+     * For testing purposes: Provides a string representation of the deck.
+     * @return String representation of the deck.
+     */
     @Override
     public String toString() {
         return "Deck{" + "cards=" + this + '}';
     }
-
 }

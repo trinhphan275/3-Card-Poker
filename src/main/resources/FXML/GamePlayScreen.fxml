@@ -13,13 +13,13 @@
 
     <!-- Top Navigation or Header -->
     <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 10;" layoutX="10" layoutY="10">
-        <Button fx:id="homeButton" text="Home" onAction="#handleHomeButton"/>
-        <Button fx:id="pauseButton" text="Pause" onAction="#handlePauseButton"/>
+        <Button fx:id="homeButton" text="Home" onAction="#handleHomeButton" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 6 12;"/>
+        <Button fx:id="pauseButton" text="Pause" onAction="#handlePauseButton" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 6 12;"/>
     </HBox>
 
     <!-- Dealer Section -->
-    <VBox alignment="CENTER" spacing="10" layoutX="520" layoutY="50" style="-fx-padding: 20;">
-        <Text text="Dealer" style="-fx-font-size: 20; -fx-font-weight: bold;" />
+    <VBox alignment="CENTER" spacing="10" layoutX="520" layoutY="50" style="-fx-padding: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 0);">
+        <Text text="Dealer" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-fill: #582f0e;" />
         <HBox alignment="CENTER" spacing="15">
             <ImageView fx:id="dealerCard1" fitWidth="100" fitHeight="150"/>
             <ImageView fx:id="dealerCard2" fitWidth="100" fitHeight="150"/>
@@ -28,34 +28,33 @@
     </VBox>
 
 
-    <HBox fx:id="playButtonContainer" alignment="CENTER" spacing="15" layoutY="0" style="-fx-padding: 20;">
-        <Button fx:id="playBtn" text="Play" onAction="#handlePlayButton" style="-fx-font-size: 16; -fx-padding: 10;"/>
+    <!-- Play Button Positioned Below the Dealer Section -->
+    <HBox fx:id="playButtonContainer" alignment="CENTER" spacing="15" layoutX="470" layoutY="250" style="-fx-padding: 20;">
+        <Button fx:id="playBtn" text="Play" onAction="#handlePlayButton" style="-fx-font-size: 16; -fx-padding: 10; -fx-background-color: #4CAF50; -fx-text-fill: white;"/>
     </HBox>
 
 
-
-
     <!-- Player 1 Section -->
-    <VBox alignment="CENTER" spacing="15" layoutX="100" layoutY="300" style="-fx-padding: 20;">
-        <Text text="Player 1" style="-fx-font-size: 20; -fx-font-weight: bold;" />
+    <VBox alignment="CENTER" spacing="15" layoutX="100" layoutY="300" style="-fx-padding: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 0);">
+        <Text text="Player 1" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-fill: #582f0e;" />
         <HBox alignment="CENTER" spacing="10">
             <VBox alignment="CENTER">
-                <Text text="Ante" style="-fx-font-size: 16;" />
-                <TextField fx:id="player1AnteBetField" editable="false" style="-fx-alignment: center;"/>
+                <Text text="Ante" style="-fx-font-size: 16; -fx-fill: #582f0e;" />
+                <TextField fx:id="player1AnteBetField" editable="false" style="-fx-alignment: center; -fx-font-size: 14px;"/>
             </VBox>
             <VBox alignment="CENTER">
-                <Text text="Play Bet" style="-fx-font-size: 16;" />
-                <TextField fx:id="player1PlayBetField" editable="false" style="-fx-alignment: center;"/>
+                <Text text="Play Bet" style="-fx-font-size: 16; -fx-fill: #582f0e;" />
+                <TextField fx:id="player1PlayBetField" editable="false" style="-fx-alignment: center; -fx-font-size: 14px;"/>
             </VBox>
             <VBox alignment="CENTER">
-                <Text text="Pair+" style="-fx-font-size: 16;" />
-                <TextField fx:id="player1PairPlusBetField" editable="false" style="-fx-alignment: center;"/>
+                <Text text="Pair+" style="-fx-font-size: 16; -fx-fill: #582f0e;" />
+                <TextField fx:id="player1PairPlusBetField" editable="false" style="-fx-alignment: center; -fx-font-size: 14px;"/>
             </VBox>
         </HBox>
 
         <VBox alignment="CENTER">
-            <Text text="Total Winnings" style="-fx-font-size: 16;" />
-            <TextField fx:id="totalWinningsField1" editable="false" style="-fx-alignment: center;"/>
+            <Text text="Total Winnings" style="-fx-font-size: 16; -fx-fill: #582f0e;" />
+            <TextField fx:id="totalWinningsField1" editable="false" style="-fx-alignment: center; -fx-font-size: 14px;"/>
         </VBox>
 
         <HBox alignment="CENTER" spacing="10">
@@ -66,32 +65,32 @@
 
         <!-- Player 1 Action Buttons -->
         <HBox alignment="CENTER" spacing="20" layoutY="20">
-            <Button fx:id="player1PlayButton" text="Play" onAction="#handlePlayer1Play" style="-fx-font-size: 16; -fx-padding: 10;"/>
-            <Button fx:id="player1FoldButton" text="Fold" onAction="#handlePlayer1Fold" style="-fx-font-size: 16; -fx-padding: 10;"/>
+            <Button fx:id="player1PlayButton" text="Play" onAction="#handlePlayer1Play" style="-fx-font-size: 16; -fx-padding: 10; -fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+            <Button fx:id="player1FoldButton" text="Fold" onAction="#handlePlayer1Fold" style="-fx-font-size: 16; -fx-padding: 10; -fx-background-color: #F44336; -fx-text-fill: white;"/>
         </HBox>
     </VBox>
 
     <!-- Player 2 Section -->
-    <VBox alignment="CENTER" spacing="15" layoutX="1000" layoutY="300" style="-fx-padding: 20;">
-        <Text text="Player 2" style="-fx-font-size: 20; -fx-font-weight: bold;" />
+    <VBox alignment="CENTER" spacing="15" layoutX="1000" layoutY="300" style="-fx-padding: 20; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 0);">
+        <Text text="Player 2" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-fill: #582f0e;" />
         <HBox alignment="CENTER" spacing="10">
             <VBox alignment="CENTER">
-                <Text text="Ante" style="-fx-font-size: 16;" />
-                <TextField fx:id="player2AnteBetField" editable="false" style="-fx-alignment: center;"/>
+                <Text text="Ante" style="-fx-font-size: 16; -fx-fill: #582f0e;" />
+                <TextField fx:id="player2AnteBetField" editable="false" style="-fx-alignment: center; -fx-font-size: 14px;"/>
             </VBox>
             <VBox alignment="CENTER">
-                <Text text="Play Bet" style="-fx-font-size: 16;" />
-                <TextField fx:id="player2PlayBetField" editable="false" style="-fx-alignment: center;"/>
+                <Text text="Play Bet" style="-fx-font-size: 16; -fx-fill: #582f0e;" />
+                <TextField fx:id="player2PlayBetField" editable="false" style="-fx-alignment: center; -fx-font-size: 14px;"/>
             </VBox>
             <VBox alignment="CENTER">
-                <Text text="Pair+" style="-fx-font-size: 16;" />
-                <TextField fx:id="player2PairPlusBetField" editable="false" style="-fx-alignment: center;"/>
+                <Text text="Pair+" style="-fx-font-size: 16; -fx-fill: #582f0e;" />
+                <TextField fx:id="player2PairPlusBetField" editable="false" style="-fx-alignment: center; -fx-font-size: 14px;"/>
             </VBox>
         </HBox>
 
         <VBox alignment="CENTER">
-            <Text text="Total Winnings" style="-fx-font-size: 16;" />
-            <TextField fx:id="totalWinningsField2" editable="false" style="-fx-alignment: center;"/>
+            <Text text="Total Winnings" style="-fx-font-size: 16; -fx-fill: #582f0e;" />
+            <TextField fx:id="totalWinningsField2" editable="false" style="-fx-alignment: center; -fx-font-size: 14px;"/>
         </VBox>
 
         <HBox alignment="CENTER" spacing="10">
@@ -102,8 +101,8 @@
 
         <!-- Player 2 Action Buttons -->
         <HBox alignment="CENTER" spacing="20" layoutY="20">
-            <Button fx:id="player2PlayButton" text="Play" onAction="#handlePlayer2Play" style="-fx-font-size: 16; -fx-padding: 10;"/>
-            <Button fx:id="player2FoldButton" text="Fold" onAction="#handlePlayer2Fold" style="-fx-font-size: 16; -fx-padding: 10;"/>
+            <Button fx:id="player2PlayButton" text="Play" onAction="#handlePlayer2Play" style="-fx-font-size: 16; -fx-padding: 10; -fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+            <Button fx:id="player2FoldButton" text="Fold" onAction="#handlePlayer2Fold" style="-fx-font-size: 16; -fx-padding: 10; -fx-background-color: #F44336; -fx-text-fill: white;"/>
         </HBox>
     </VBox>
 
@@ -111,5 +110,4 @@
     <Rectangle fx:id="pauseScreen" width="1440" height="830" fill="#000000" opacity="0.5" stroke="#582f0e" strokeWidth="6" visible="false"/>
     <Text fx:id="pauseText" text="PAUSE" style="-fx-font-size: 80px; -fx-text-fill: #ffffff;" translateX="600" translateY="350" visible="false"/>
     <Text fx:id="pauseTextBelow" text="Click the screen to resume" style="-fx-font-size: 40px; -fx-text-fill: #ffffff;" translateX="500" translateY="400" visible="false"/>
-
 </AnchorPane>
