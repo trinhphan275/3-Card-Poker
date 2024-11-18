@@ -17,12 +17,11 @@ import java.util.ArrayList;
 public class Controller {
 
     // Welcome Screen
-    @FXML private Button playButton;
+    @FXML public Button startButton;
     @FXML private Button exitButton;
 
     // Game Play Screen
     @FXML private AnchorPane gamePlayScreen;
-    @FXML private Text gameInfoText;
 
     // Player 1 UI Elements
     @FXML private TextField player1AnteBetField;
@@ -65,25 +64,28 @@ public class Controller {
     private Player player1;
     private Player player2;
     private Dealer dealer;
+    private int roundNum;
 
     private boolean isPaused = false;
-
     @FXML
-    private void initialize() {
-        // Initialize the game and players
+    public void initialize() {
+        // Initialize the game, players, and dealer
         game = new ThreeCardPokerGame();
         player1 = game.getPlayerOne();
         player2 = game.getPlayerTwo();
         dealer = game.getDealer();
+        String gameInfoText = "";
+        roundNum = 0;
 
-        // Shuffle the deck
-        game.getDeck().shuffle();
+        // Reset and shuffle the dealer's deck
+        dealer.resetDeck();
 
         // Deal hands to the players and dealer
         player1.setHand(dealer.dealHand());
         player2.setHand(dealer.dealHand());
-        dealer.setHand(dealer.dealHand());
+        dealer.dealHand();  // Dealer deals their own hand
     }
+
 
     // Handle Start Button click
     @FXML
@@ -117,7 +119,6 @@ public class Controller {
         }
     }
 
-    // Handle Fresh Start Button click
     @FXML
     private void handleFreshStartButton(ActionEvent event) {
         // Reset player winnings to 0
@@ -127,11 +128,13 @@ public class Controller {
         // Reset bet fields
         resetBetFields();
 
-        // Shuffle the deck and deal new hands
-        game.getDeck().shuffle();
+        // Reset and shuffle the dealer's deck
+        dealer.resetDeck();
+
+        // Deal new hands to players and dealer
         player1.setHand(dealer.dealHand());
         player2.setHand(dealer.dealHand());
-        dealer.setHand(dealer.dealHand());
+        dealer.dealHand();  // Dealer deals their own hand internally
 
         // Update the UI with the new hands
         displayCards(player1.getHand(), player1Card1, player1Card2, player1Card3);
