@@ -18,10 +18,11 @@ public class Controller {
 
     // Welcome Screen
     @FXML public Button startButton;
-    @FXML private Button exitButton;
+    @FXML public Button exitButton;
 
     // Game Play Screen
     @FXML private AnchorPane gamePlayScreen;
+    @FXML public Button playButton;
 
     // Player 1 UI Elements
     @FXML private TextField player1AnteBetField;
